@@ -33,7 +33,7 @@ export const Navbar = () => {
                             "Expand navigation menu"
                         }
                         aria-expanded={open}
-                        onClick={() => setOpen((prev) => !prev)}
+                        onClick={handleClick}
                     >
                         <aside 
                             aria-hidden="true"
@@ -71,12 +71,14 @@ export const Navbar = () => {
                                     to={to}
                                     end={to === "/"}
                                     aria-label={toolTip}
+                                    data-tooltip={!open ? toolTip : undefined}
                                     onClick={closeMenu}
                                     className={({ isActive }) => 
                                         `${styles.nav__links}
                                         ${isActive ? styles.nav__current : ""}`
                                 }>
                                     <Icon aria-hidden="true" focusable="false" />
+                                    {/* TOOL TIPS ON HOVER */}
                                     <span
                                         aria-hidden="true"
                                         className={styles.nav__label}
