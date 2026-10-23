@@ -16,7 +16,8 @@ export const Navbar = () => {
 
     return (
         <React.Fragment>
-            {/* The sidebar expands over the page while icons stay anchored. */}
+            {/* The sidebar expands over the 
+            page while icons stay anchored. */}
             <section
                 className={`
                     ${styles.nav__panel} 
