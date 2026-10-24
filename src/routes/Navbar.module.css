@@ -1,10 +1,16 @@
+.nav__panel,
+.nav__content {
+    --nav-collapsed-width: 5rem;  /* Originally 5rem */
+    --nav-expanded-width: min(16.25rem, 50vw);
+}
+
 /* SIDEBAR: icons remain visible 
 without a painted rail when collapsed. */
 .nav__panel {
     position: fixed;
     inset: 0 auto 0 0;
     z-index: 51;
-    width: 5rem;  /* Originally 5rem */
+    width: var(--nav-collapsed-width);  
     height: 100dvh;
     background: var(--grey3);
     color: var(--text-muted);
@@ -13,8 +19,7 @@ without a painted rail when collapsed. */
 }
 
 .nav__panel.active {
-    /* Originally width: min(16.25rem...) */
-    width: min(16.25rem, calc(100vw - 1rem));
+    width: var(--nav-expanded-width);
     border-right: 1px solid var(--border-subtle);
     pointer-events: auto;
     box-shadow: 0.5rem 0 2rem color-mix(
@@ -55,8 +60,7 @@ branding appears when expanded. */
     display: block;
 }
 
-/* MENU TOGGLE: a stable target in 
-the collapsed and expanded layouts. */
+/* NAV MENU BUTTON  */
 .nav__button {
     display: grid;
     place-items: center;
@@ -191,8 +195,6 @@ available in both sidebar modes. */
     pointer-events: auto;
 }
 
-/* ACTIVE ROUTE AND FOCUS: preserve 
-the current palette in both themes. */
 .nav__links.nav__current {
     box-shadow: inset 3px 0 var(--border-main);
     background: color-mix(
@@ -209,11 +211,14 @@ the current palette in both themes. */
     outline-offset: 3px;
 }
 
-/* PAGE CONTENT: leave room for 
-the visible sidebar icons. */
 .nav__content {
     min-width: 0;
-    margin-left: 5rem;
+    margin-left: var(--nav-collapsed-width);
+    transition: margin-left 280ms ease;
+}
+
+.nav__panel.active + .nav__content {
+    margin-left: var(--nav-expanded-width);
 }
 
 /* SHORT SCREENS: tighten spacing so 
@@ -232,6 +237,7 @@ the current three links remain reachable. */
 layout changes without animation. */
 @media (prefers-reduced-motion: reduce) {
     .nav__panel,
+    .nav__content,
     .nav__line,
     .nav__links {
         transition: none;
